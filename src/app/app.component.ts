@@ -21,7 +21,7 @@ export class AppComponent {
     this.alertRef.instance.date = date;
     this.alertRef.changeDetectorRef.detectChanges();
 
-    setTimeout(() => this.destroyAlert(), 5000);
+    setTimeout(() => this.destroyAlert(), 3000);
   }
 
   destroyAlert() {

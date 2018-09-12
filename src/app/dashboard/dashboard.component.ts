@@ -17,6 +17,9 @@ interface Node {
 })
 
 export class DashboardComponent implements OnInit, OnDestroy {
+
+  @Output() onRefresh: EventEmitter<Date> = new EventEmitter<Date>();
+
   cpu: Metric;
   mem: Metric;
   cluster1: Node[];
@@ -36,16 +39,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     clearInterval(this.interval);
   }
 
-  @Output() onRefresh: EventEmitter<Date> = new EventEmitter<Date>();
-
   generateData(): void {
     this.cluster1 = [];
     this.cluster2 = [];
     this.cpu = { used: 0, available: 0 };
     this.mem = { used: 0, available: 0 };
-    this.onRefresh.emit(new Date());
     for (let i = 1; i < 4; i++) this.cluster1.push(this.randomNode(i));
     for (let i = 4; i < 7; i++) this.cluster2.push(this.randomNode(i));
+    this.onRefresh.emit(new Date());
   }
 
   private randomNode(i): Node {
